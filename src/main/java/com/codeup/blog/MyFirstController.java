@@ -36,4 +36,9 @@ public class MyFirstController {
         return String.format("%d + 1 = %d", n, n + 1);
     }
 
+    @GetMapping("/roll-dice")
+    public @ResponseBody String rollDice() {
+        return "diceRoll";
+    }
+
 }
