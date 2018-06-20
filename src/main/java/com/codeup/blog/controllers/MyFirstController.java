@@ -1,4 +1,4 @@
-package com.codeup.blog;
+package com.codeup.blog.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MyFirstController {
 
-    @GetMapping("/say-hello")
+    @GetMapping("/hello")
     public @ResponseBody String myFirstSpringView() {
         return "Hello from Spring!";
     }
 
-    @GetMapping("/say-hello/{name}")
+    @GetMapping("/hello/{name}")
     public @ResponseBody String sayHello(@PathVariable String name) {
         return String.format("Hello, %s!", name);
     }
@@ -26,7 +26,7 @@ public class MyFirstController {
         return String.format("Finding flights from %s to %s...", from, to);
     }
 
-    @GetMapping("/say-goodbye")
+    @GetMapping("/goodbye")
     public @ResponseBody String mySecondSpringView() {
         return "Goodbye World!";
     }
@@ -38,7 +38,7 @@ public class MyFirstController {
 
     @GetMapping("/roll-dice")
     public @ResponseBody String rollDice() {
-        return "diceRoll";
+        return "roll-dice";
     }
 
 }

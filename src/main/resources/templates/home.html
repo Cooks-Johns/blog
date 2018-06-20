@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials :: header">
-    <meta charset="UTF-8"/>
-    <title>HomePage</title>
-    <link rel="stylesheet" href=""/>  <!-- Void elements need to be closed  -->
-</head>
+<head th:replace="partials :: head(${'Welcome!'})"/>
+
 <body>
+
+
+<div th:replace="partials :: navbar"/>
+
 
     <h1>This is My Home Page</h1>
 
     <br/>
     <hr/>
 
-    <h2></h2>
+<th:block th:replace="partials :: scripts"/>
 
 </body>
 </html>
