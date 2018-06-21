@@ -1,14 +1,24 @@
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="partial :: head"/>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="partials :: head(${'Post show pave'})"/>
+    <body>
+    <nav th:replace="partials :: navbar"/>
+
+    <div class="container">
+
+    <h1 th:text="${post.title}"/>
+        <p th:text="${post.body}"/>
+        <p th:text="${post.text}"/>
+
+    </div>
 
 
-<body>
-
-<nav th:replace="partial :: navbar"/>
-<h1>Show</h1>
 
 
-<footer th:replace-="partial :: footer"/>
 
-</body>
+
+
+    <footer th:replace="partials :: footer"/>
+
+    </body>
 </html>
