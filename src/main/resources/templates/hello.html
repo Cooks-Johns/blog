@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials :: header"></head>
+<head>
+    <meta charset="UTF-8"/>
+    <title>The True Hello</title>
+
+</head>
 <body>
 
-    <h1>Hello, <!--/*@thymesVar id="name" type=""*/-->
+
+    <h1>Hello,
+
     <span th:text="${name}">World</span>!</h1>
+
+    <div the:each="language : ${languages}">
+        <p th:text="${language}"/>
+    </div>
 
 </body>
 </html>

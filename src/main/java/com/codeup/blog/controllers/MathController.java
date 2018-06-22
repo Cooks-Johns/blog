@@ -15,7 +15,6 @@ public class MathController {
         return String.format("%d + %d = %d", x, y, x + y);
     }
 
-
     @GetMapping("/subtract/{y}/from/{x}")
     public @ResponseBody String subtraction(
             @PathVariable int x,
@@ -23,7 +22,6 @@ public class MathController {
     ) {
         return String.format("%d - %d = %d", x, y, x - y);
     }
-
 
     @GetMapping("/multiply/{x}/and/{y}")
     public @ResponseBody String multiplication(
@@ -33,7 +31,6 @@ public class MathController {
         return String.format("%d x %d = %d", x, y, x * y);
     }
 
-
     @GetMapping("/divide/{x}/by/{y}")
     public @ResponseBody String division(
             @PathVariable int x,
@@ -41,5 +38,4 @@ public class MathController {
     ) {
         return String.format("%d / %d = %d", x, y, x / y);
     }
-
 }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="partials :: head />
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head(${'Welcome!'})"/>
 
 <body>
 
- <div th:replace="partials :: navbar"/>
+<div th:replace="partials :: navbar"/>
 
     <h1>Lets Roll Some Dice!</h1>
 
