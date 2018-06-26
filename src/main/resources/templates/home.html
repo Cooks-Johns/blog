@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="partials :: head(${'Welcome!'})"/>
+<head th:replace="partials/header :: header('Welcome!')"/>
 
 <body>
 
 
-<div th:replace="partials :: navbar"/>
+<div th:replace="partials/navbar :: navbar"/>
 
 
     <h1>This is My Home Page</h1>
@@ -15,7 +15,7 @@
     <hr/>
 
 
-<th:block th:replace="partials :: scripts"/>
+<footer th:replace="partials/footer :: footer"/>
 
 </body>
 </html>
