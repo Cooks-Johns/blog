@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8"/>
@@ -13,7 +13,7 @@
 
     <span th:text="${name}">World</span>!</h1>
 
-    <div the:each="language : ${languages}">
+    <div th:each="language : ${languages}">
         <p th:text="${language}"/>
     </div>
 
