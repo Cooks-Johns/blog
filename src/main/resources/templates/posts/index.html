@@ -1,39 +1,25 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: head(${'Posts index page'})" />
+<head th:replace="partials/header:: header(${'Posts index page'})" />
 <body>
-<nav th:replace="fragments :: navbar" />
+
+
+<nav th:replace="partials/navbar :: navbar" />
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">All Posts</h1>
+    </div>
+</div>
 <div class="container">
 
-    <h1 th:if="${! posts.isEmpty()}">Here are all the posts!</h1>
-    <h1 th:if="${posts.isEmpty()}">Sorry, no results found!</h1>
-
-    <div class="row">
-        <form class="col-12">
-            <div class="form-group">
-                <label for="search">Search</label>
-                <input class="form-control" id="search" type="text" name="search" th:value="${searchTerm}" />
-            </div>
-        </form>
+    <div th:each="post : ${posts}">
+        <h3><span th:text="${post.title}">Title</span></h3>
+        <p><span th:text="${post.subtitle}"></span><a th:href="@{'/posts/' + ${post.id}}"> Read More</a></p>
     </div>
-
-    <div class="post col-6" th:each="post : ${posts}">
-        <h2>
-            <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}" />
-        </h2>
-        <p>Posted By: <span th:text="${post.user.email}" /></p>
-        <p th:text="${post.body}" />
-        <div class="row">
-            <div class="col-3">
-                <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-warning btn-block">Edit</a>
-            </div>
-            <form class="col-3" method="post" th:action="@{/posts/{id}/delete(id=${post.id})}">
-                <input type="submit" class="btn btn-danger btn-block" value="Delete" />
-            </form>
-        </div>
-    </div>
-
 </div>
+<div th:replace="partials/footer :: footer"></div>
+
+
 
 <th:block th:replace="fragments :: scripts" />
 </body>

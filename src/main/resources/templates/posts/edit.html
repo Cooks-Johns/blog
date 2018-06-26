@@ -1,28 +1,19 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: head(${'Edit a Post'})" />
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/header :: header('Edit a Post')"></head>
+
 <body>
+<nav th:replace="partials/navbar :: navbar" />
 
-<div class="container">
-    <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="post" th:object="${post}">
-
-        <h1 class="my-4 text-center">Create A Post</h1>
-
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input class="form-control" type="text" id="title" th:field="*{title}" />
-        </div>
-
-        <div class="form-group">
-            <label for="body">Body</label>
-            <input class="form-control" type="text" id="body" th:field="*{body}" />
-        </div>
-
-        <input class="btn btn-block btn-primary" type="submit" />
-
-    </form>
-</div>
-
+<form th:action="${'/posts/' + {post.id} + '/edit'}" method="post">
+    Title:
+    <input th:field="*{title}" />
+    <br />
+    Body:
+    <input th:field="*{body}" />
+    <br />
+    <input type="submit" />
+</form>
 
 </body>
 </html>

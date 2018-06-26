@@ -1,60 +1,82 @@
-package com.codeup.blog.controllers;
+package com.codeup.blog;
 
-import com.codeup.blog.PostService;
+import com.codeup.blog.controllers.PostRepo;
 import com.codeup.blog.models.Post;
+import com.codeup.blog.models.User;
+import com.codeup.blog.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 public class PostController {
 
-    private PostService postService;
+    private final PostRepo postRepo;
+    private final UserRepository userRepo;
 
-
-    public PostController(PostService postService) {
-        this.postService = postService;
+    public PostController(PostRepo postRepo, UserRepository userRepo) {
+        this.postRepo = postRepo;
+        this.userRepo = userRepo;
     }
 
     @GetMapping("/posts")
-    public String index(Model view) {
-        List<Post> posts = postService.findAll();
-        view.addAttribute("posts", posts);
-        return "posts/index";
-
+    public String postsIndex(Model model) {
+        model.addAttribute("posts", postRepo.findAll());
+        return "/posts/index";
     }
-
 
     @GetMapping("/posts/{id}")
-    public String showDetails(@PathVariable long id, Model view) {
-        Post post = postService.findOne(id);
-        view.addAttribute("post", post);
-        return "posts/show";
+    public String postsId(@PathVariable long id,  Model model) {
+        model.addAttribute("post", postRepo.findOne(id));
+        return "/posts/show";
     }
-
-
-    @GetMapping("/posts/{id}/edit")
-    public String edit(@PathVariable long id, Model view) {
-        view.addAttribute("post", postService.findOne(id));
-        return "posts/edit";
-    }
-
 
     @GetMapping("/posts/create")
-    public String create(Model view) {
-        view.addAttribute("post", new Post());
+    public String postsCreate(Model model) {
+        model.addAttribute("newPost", new Post());
         return "posts/create";
     }
 
-
     @PostMapping("/posts/create")
-    public String savePost(@ModelAttribute Post post) {
-        postService.save(post);
+    public String postsInsert(@ModelAttribute Post newPost) {
+        String body = newPost.getBody();
+        if (body.length() > 30) {
+            String subtitle = body.substring(0, 30) + "...";
+            newPost.setSubtitle(subtitle);
+        } else {
+            newPost.setSubtitle(body);
+        }
+        newPost.setOwner((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        postRepo.save(newPost);
         return "redirect:/posts";
     }
 
+    @GetMapping("/posts/{id}/edit")
+    public String edit(@ModelAttribute Post post, @PathVariable long id, Model model){
+        post.setId(id);
+        model.addAttribute("post", postRepo.findOne(id));
+        return "/posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String handleEdit(@ModelAttribute Post post){
+        String body = post.getBody();
+        if (body.length() > 30) {
+            String subtitle = body.substring(0, 30) + "...";
+            post.setSubtitle(subtitle);
+        } else {
+            post.setSubtitle(body);
+        }
+        postRepo.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/delete")
+    public String deletePost(@ModelAttribute Post post){
+        postRepo.delete(post);
+        return "redirect:/posts";
+    }
 
 }

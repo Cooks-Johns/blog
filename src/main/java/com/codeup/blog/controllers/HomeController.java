@@ -25,18 +25,6 @@ public class HomeController {
         return "roll-dice";
     }
 
-    @GetMapping("/roll-dice/{guess}")
-    public String rolldice(@PathVariable int guess, Model model) {
-
-        int roll = (int) Math.ceil(Math.random() * 6);
-
-        boolean match = roll == guess;
-
-        model.addAttribute("match", match);
-        model.addAttribute("roll", roll);
-        model.addAttribute("guess", guess);
-        return "roll-dice";
-    }
 
     @GetMapping("/roll/{n}/d{sides}")
     public @ResponseBody HashMap roll(@PathVariable int n, @PathVariable int sides) {

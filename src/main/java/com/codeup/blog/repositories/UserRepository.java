@@ -6,11 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    User findById(long id);
-
-    User findByUsername(String name);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM users LIMIT 1")
-    User first();
+//    User findById(long id);
+//
+//    User findByUsername(String name);
+//
+//    @Query(nativeQuery = true, value = "SELECT * FROM users LIMIT 1")
+//    User first();
 
 }

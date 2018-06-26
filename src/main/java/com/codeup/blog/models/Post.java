@@ -2,37 +2,40 @@ package com.codeup.blog.models;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "posts")
 public class Post {
+
     @Id
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false)
+    private String subtitle;
+
+    @Column(nullable = false)
     private String body;
 
-    public Post() {}
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn
+    private User owner;
+
+    public Post() {
+    }
 
     public Post(String title, String body) {
         this.title = title;
         this.body = body;
     }
 
-    public Post(long id, String title, String body) {
-        this.id = id;
+
+    public Post(String title, String body, long id) {
         this.title = title;
         this.body = body;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
         this.id = id;
     }
 
@@ -50,5 +53,29 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

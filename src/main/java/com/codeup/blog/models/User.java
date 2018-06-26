@@ -16,14 +16,16 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "owner")
     private List<Post> posts;
 
     public User() {}
 
     // copy constructor pattern
+
     public User(User copy) {
-        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        // This line is SUPER important! Many things won't work if it's absent
+        id = copy.id;
         email = copy.email;
         username = copy.username;
         password = copy.password;
