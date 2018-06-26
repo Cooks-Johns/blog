@@ -1,24 +1,25 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="partials :: head(${'Post show pave'})"/>
-    <body>
-    <nav th:replace="partials :: navbar"/>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/header :: header('Post Show Page')"></head>
 
+<body>
+<nav th:replace="partials/navbar :: navbar" />
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
-
-    <h1 th:text="${post.title}"/>
-        <p th:text="${post.body}"/>
-        <p th:text="${post.text}"/>
-
+        <h1 class="display-4"><span th:text="${post.title}">Title</span></h1>
+        <p>Author: <span th:text="${post.owner.email}"></span></p>
     </div>
+</div>
+<div class="container">
+    <p><span th:text="${post.body}">Body</span></p>
+    <a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit</a>
+    <form th:action="@{/posts/delete}" method="post" th:object="${post}">
+        <input type="hidden" th:field="*{id}" />
+        <button id="delete">Delete</button>
+    </form>
+</div>
 
+<div th:replace="partials/footer :: footer"></div>
 
-
-
-
-
-
-    <footer th:replace="partials :: footer"/>
-
-    </body>
+</body>
 </html>
