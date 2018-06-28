@@ -1,0 +1,43 @@
+body {
+    background:blanchedalmond;
+    margin: 15px;
+    padding: 15px;
+    border: #939499;
+}
+
+h1  {
+    font-family: 'Inconsolata', monospace;
+    text-align: center;
+
+}
+
+a, dt, dd, p, li, ul {
+    font-family: 'Cinzel', serif;
+
+}
+
+.navbar-nav {
+    border: black 10px;
+}
+
+a:link {
+    color: red;
+}
+
+a:visited {
+    color: darkgreen;
+}
+
+a:hover {
+    color: hotpink;
+}
+a:active {
+    color: blue;
+}
+
+span {
+    position: relative;
+    top: -55px;
+    left: 15px;
+}
+

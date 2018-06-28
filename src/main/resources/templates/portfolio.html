@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head>
-    <meta charset="UTF-8"/>
-    <title>Portfolio</title>
-</head>
+<head th:replace="partials/header:: header(${'Posts index page'})" />
+
 <body>
+
+<nav th:replace="partials/navbar :: navbar" />
+
 
 <h1>Here are My projects</h1>
 
@@ -44,6 +45,9 @@
         delete, and modify existing ad posts.
     </dd>
 </dl>
+
+<footer th:replace="partials/footer :: footer" />
+
 
 </body>
 </html>

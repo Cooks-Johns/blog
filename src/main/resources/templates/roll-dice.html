@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials :: head(${'Welcome!'})"/>
+<head th:replace="partials/header :: header(${'Welcome!'})"/>
 
 <body>
 
-<div th:replace="partials :: navbar"/>
+<nav th:replace="partials/navbar :: navbar"/>
 
     <h1>Lets Roll Some Dice!</h1>
 
@@ -15,7 +15,7 @@
     <a href="/roll-dice/5"></a>
     <a href="/roll-dice/6"></a>
 
-
+<footer th:replace="partials/footer :: footer" />
 
 </body>
 </html>
