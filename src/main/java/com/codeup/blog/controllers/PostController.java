@@ -1,9 +1,10 @@
-package com.codeup.blog;
+package com.codeup.blog.controllers;
 
-import com.codeup.blog.controllers.PostRepo;
 import com.codeup.blog.models.Post;
 import com.codeup.blog.models.User;
+import com.codeup.blog.repositories.PostRepository;
 import com.codeup.blog.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
 
-    private final PostRepo postRepo;
+    private final PostRepository postRepo;
     private final UserRepository userRepo;
 
-    public PostController(PostRepo postRepo, UserRepository userRepo) {
+    public PostController(@Qualifier("postRepository") PostRepository postRepo, UserRepository userRepo) {
         this.postRepo = postRepo;
         this.userRepo = userRepo;
     }
