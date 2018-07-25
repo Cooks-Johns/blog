@@ -10,74 +10,93 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Controller
 public class PostController {
+    private final PostService postService;
+    private final UserService userService;
 
-    private final PostRepository postRepo;
-    private final UserRepository userRepo;
 
-    public PostController(@Qualifier("postRepository") PostRepository postRepo, UserRepository userRepo) {
-        this.postRepo = postRepo;
-        this.userRepo = userRepo;
+    public PostController(PostService postService, UserService userService) {
+        this.postService = postService;
+        this.userService = userService;
+
+
     }
+
 
     @GetMapping("/posts")
-    public String postsIndex(Model model) {
-        model.addAttribute("posts", postRepo.findAll());
-        return "/posts/index";
+    public String Index(Model view, @RequestParam(name = "search", required = false) String searchTerm) {
+        List<Post> posts;
+        if (searchTerm != null) {
+            posts = postService.search(searchTerm);
+        } else {
+
+            posts = postService.findAll();
+
+        }
+
+
+
+        view.addAttribute("posts", posts);
+        view.addAttribute("searchTerm", searchTerm);
+        return "posts/index";
     }
 
-    @GetMapping("/posts/{id}")
-    public String postsId(@PathVariable long id,  Model model) {
-        model.addAttribute("post", postRepo.findOne(id));
-        return "/posts/show";
+    @GetMapping("/post/{id}")
+    public String ShowDetails(@PathVariable long id, Model view) {
+        view.addAttribute("post", postService.findById(id));
+        System.out.println(postService.findById(id));
+        return "posts/show";
+
+
     }
 
-    @GetMapping("/posts/create")
-    public String postsCreate(Model model) {
-        model.addAttribute("newPost", new Post());
+    @GetMapping("/post/{id}/edit")
+    public String showEditForm(@ModelAttribute Post post, @PathVariable long id, Model view) {
+
+        view.addAttribute("id", id);
+        Post p = postService.findOne(id);
+        view.addAttribute("post", p);
+        return "posts/edit";
+
+    }
+
+    @PostMapping("/post/{id}/edit")
+    public String Edit(@ModelAttribute Post post, @PathVariable long id, Model view) {
+
+        postService.edit(post, id);
+
+        view.addAttribute("posts", post);
+        return "redirect:/posts";
+
+    }
+
+    @GetMapping("/post/{id}/delete")
+    public String delete(@ModelAttribute Post post, @PathVariable long id, Model view) {
+        postService.delete(id);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/post/create")
+    public String create(@ModelAttribute Post post) {
+
+        postService.save(post);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/post/create")
+    public String showCreateForm(Model view) {
+        view.addAttribute("post", new Post());
         return "posts/create";
     }
 
-    @PostMapping("/posts/create")
-    public String postsInsert(@ModelAttribute Post newPost) {
-        String body = newPost.getBody();
-        if (body.length() > 30) {
-            String subtitle = body.substring(0, 30) + "...";
-            newPost.setSubtitle(subtitle);
-        } else {
-            newPost.setSubtitle(body);
-        }
-        newPost.setOwner((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        postRepo.save(newPost);
-        return "redirect:/posts";
+    @GetMapping("/redirect")
+    public String redirect() {
+        return "redirect:posts/index";
     }
 
-    @GetMapping("/posts/{id}/edit")
-    public String edit(@ModelAttribute Post post, @PathVariable long id, Model model){
-        post.setId(id);
-        model.addAttribute("post", postRepo.findOne(id));
-        return "/posts/edit";
-    }
 
-    @PostMapping("/posts/{id}/edit")
-    public String handleEdit(@ModelAttribute Post post){
-        String body = post.getBody();
-        if (body.length() > 30) {
-            String subtitle = body.substring(0, 30) + "...";
-            post.setSubtitle(subtitle);
-        } else {
-            post.setSubtitle(body);
-        }
-        postRepo.save(post);
-        return "redirect:/posts";
-    }
-
-    @PostMapping("/posts/delete")
-    public String deletePost(@ModelAttribute Post post){
-        postRepo.delete(post);
-        return "redirect:/posts";
-    }
-
-}
+}}

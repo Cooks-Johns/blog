@@ -1,16 +1,16 @@
 package com.codeup.blog.repositories;
 
 import com.codeup.blog.models.User;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+import java.util.List;
 
-//    User findById(long id);
-//
-//    User findByUsername(String name);
-//
-//    @Query(nativeQuery = true, value = "SELECT * FROM users LIMIT 1")
-//    User first();
+public interface UsersRepository extends CrudRepository<SecurityProperties.User,Long> {
+    List<SecurityProperties.User> findAll();
+    SecurityProperties.User findByUsername(String username);
+    SecurityProperties.User findUsersById(long id);
+
 
 }

@@ -6,17 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface PostRepository extends CrudRepository<Post, Long> {
+
+public interface PostRepository extends CrudRepository<Post,Long> {
     List<Post> findAll();
-
-    List<Post> findByTitle(String title);
-
-    // SELECT * FROM posts WHERE title LIKE '%...%' OR body like '%..%';
-
-    List<Post> findByTitleLike(String searchTerm);
-
-    List<Post> findByTitleLikeOrBodyLike(String titleSearch, String bodySearch);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM posts WHERE title LIKE ?1 OR body LIKE ?1")
-    List<Post> search(String searchTerm);
+    List<Post> findByBodyContainsOrTitleContains(String searchTerm, String searchTerm2);
+    Post findById(long id);
 }
