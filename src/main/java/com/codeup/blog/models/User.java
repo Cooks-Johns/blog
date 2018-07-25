@@ -1,4 +1,4 @@
-package com.codeup.blog.models;
+package com.codeup.blog.model;
 
 import javax.persistence.*;
 import java.util.List;
@@ -6,26 +6,35 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
-
-    @Column(nullable = false, unique = true)
+    @Column (name ="username", nullable = false, length = 100)
     private String username;
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
-    @Column(nullable = false)
+    @Column (name = "password", nullable = false, length = 100)
     private String password;
 
-    @OneToMany(mappedBy = "owner")
-    private List<Post> posts;
+    @OneToMany
+    private List<com.codeup.blog.model.Post> posts;
 
-    public User() {}
+    public User(long id, String username, String email, String pasword) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = pasword;
+    }
 
-    // copy constructor pattern
+    public User(String email, String username) {
+        this.email = email;
+        this.password = username;
+    }
+
+    public User() { }
 
     public User(User copy) {
-        // This line is SUPER important! Many things won't work if it's absent
-        id = copy.id;
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
         email = copy.email;
         username = copy.username;
         password = copy.password;
@@ -59,15 +68,9 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String pasword) {
+        this.password = pasword;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
 }

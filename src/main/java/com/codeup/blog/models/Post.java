@@ -1,42 +1,38 @@
 package com.codeup.blog.models;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 
 import javax.persistence.*;
-
+import java.util.List;
 
 @Entity
-@Table(name = "posts")
+@Table(name ="posts")
 public class Post {
-
     @Id
     @GeneratedValue
     private long id;
-
-    @Column(nullable = false, length = 100)
+    @Column(name = "title",nullable = false, length = 100)
     private String title;
-
-    @Column(nullable = false)
-    private String subtitle;
-
-    @Column(nullable = false)
+    @Column(name = "body", nullable = false)
     private String body;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
+
+    @ManyToOne
     @JoinColumn
-    private User owner;
-
-    public Post() {
-    }
-
-    public Post(String title, String body) {
-        this.title = title;
-        this.body = body;
-    }
-
+    private User user;
 
     public Post(String title, String body, long id) {
         this.title = title;
         this.body = body;
         this.id = id;
+
+    }
+    public Post(String title, String body){
+        this.title = title;
+        this.body = body;
+    }
+
+    public Post() {
+
     }
 
     public String getTitle() {
@@ -54,7 +50,6 @@ public class Post {
     public void setBody(String body) {
         this.body = body;
     }
-
     public long getId() {
         return id;
     }
@@ -63,20 +58,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public User getUser() {
+        return user;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
-    }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setUser(User users) {
+        this.user = users;
     }
 }
-
