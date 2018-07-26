@@ -1,8 +1,6 @@
 package com.codeup.blog.models;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name ="posts")
@@ -61,7 +59,10 @@ public class Post {
     public User getUser() {
         return user;
     }
-
+    public long getUserId(){
+        return user.getId();
+    }
+    public String getEmail(){return user.getEmail();}
 
     public void setUser(User users) {
         this.user = users;

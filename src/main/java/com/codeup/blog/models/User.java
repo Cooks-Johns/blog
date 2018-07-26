@@ -1,4 +1,5 @@
-package com.codeup.blog.model;
+package com.codeup.blog.models;
+
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +18,7 @@ public class User {
     private String password;
 
     @OneToMany
-    private List<com.codeup.blog.model.Post> posts;
+    private List<Post> posts;
 
     public User(long id, String username, String email, String pasword) {
         this.id = id;
@@ -71,6 +72,7 @@ public class User {
     public void setPassword(String pasword) {
         this.password = pasword;
     }
+
 
 
 }
