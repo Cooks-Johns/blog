@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="partials/header :: header('Welcome!')"/>
+<head th:replace="partials/header :: head(${'Home'})"/>
 
 <body>
 
@@ -9,13 +9,16 @@
 <div th:replace="partials/navbar :: navbar"/>
 
 
-    <h1>This is My Home Page</h1>
+<h1 id="homeHead">Blog<img id="globe" src="/img/globe.svg"/>This is My Home Page</h1>
 
     <br/>
     <hr/>
 
 
-<footer th:replace="partials/footer :: footer"/>
+<script th:replace="partials/footer :: footer"></script>
+
+</body>
+
 
 </body>
 </html>

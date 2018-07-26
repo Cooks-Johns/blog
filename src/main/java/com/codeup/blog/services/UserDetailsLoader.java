@@ -20,7 +20,7 @@ public class UserDetailsLoader implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = users.findByUsername(s);
+        User user = users.findUsersById(s);;
         if (user == null){
             throw new UsernameNotFoundException("Couldn't find user w/ username:" + s);
         }

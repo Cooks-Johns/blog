@@ -13,5 +13,9 @@ public interface UserRepository extends CrudRepository<SecurityProperties.User,L
     User findUsersById(long id);
 
 
-    void save(User user);
+    User save(User user);
+
+    User findUsersById(String s);
+
+    User findUserById(long id);
 }

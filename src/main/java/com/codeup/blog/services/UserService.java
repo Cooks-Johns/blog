@@ -18,10 +18,10 @@ public class UserService {
     }
 
     public SecurityProperties.User findRandomUser() {
-        List<User> users = userDao.findAll();
+        List<SecurityProperties.User> user = userDao.findAll();
         Random ranUser =  new Random();
 
-        return users.get(ranUser.nextInt(user.size()));
+        return user.get(ranUser.nextInt(user.size()));
     }
 
     public User findUserById(long id) {
