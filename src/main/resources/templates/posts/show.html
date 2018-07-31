@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/header :: header('Post Show Page')"></head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/header :: head(${'Post'})">
 
+</head>
 <body>
-<nav th:replace="partials/navbar :: navbar" />
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4"><span th:text="${post.title}">Title</span></h1>
-        <p>Author: <span th:text="${post.owner.email}"></span></p>
+<nav th:replace="partials/navbar :: nav-bar"></nav>
+
+<div class="card mt-5 w-50 mx-auto">
+    <div class="card-header text-center bgHead"><span th:text="${post.title}" class=""></span></div>
+    <div class="card-body">
+        <p th:text="${post.body}" class="card-text text-center type"></p>
+    </div>
+    <div class="card-footer">
+        <p class="type"><span th:text="${post.getEmail()}"></span></p>
     </div>
 </div>
-<div class="container">
-    <p><span th:text="${post.body}">Body</span></p>
-    <a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit</a>
-    <form th:action="@{/posts/delete}" method="post" th:object="${post}">
-        <input type="hidden" th:field="*{id}" />
-        <button id="delete">Delete</button>
-    </form>
-</div>
 
-<div th:replace="partials/footer :: footer"></div>
+
+<script th:replace="partials/footer :: footer"></script>
 
 </body>
 </html>

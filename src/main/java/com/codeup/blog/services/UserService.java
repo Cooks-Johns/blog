@@ -17,18 +17,20 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public SecurityProperties.User findRandomUser() {
-        List<SecurityProperties.User> user = userDao.findAll();
-        Random ranUser =  new Random();
+    public User findRandomUser(){
+        List<User> users = userDao.findAll();
+        Random r = new Random();
 
-        return user.get(ranUser.nextInt(user.size()));
+        return users.get(r.nextInt(users.size()));
     }
 
-    public User findUserById(long id) {
-        return userDao.findUserById(id);
+    public User findUserById(long id){
+        return userDao.findUsersById(id);
     }
 
-    public User save(User user) {
+    public User save(User user){
         return userDao.save(user);
     }
+
+
 }

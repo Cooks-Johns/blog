@@ -1,26 +1,38 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/header:: header(${'Posts index page'})" />
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="partials/header :: head(${'Posts'})">
+
+</head>
 <body>
-
-
-<nav th:replace="partials/navbar :: navbar" />
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">All Posts</h1>
-    </div>
-</div>
+<nav th:replace="partials/navbar :: nav-bar"></nav>
+<h1 th:if="${! posts.isEmpty()}" class="text-center mt-5">Here are all the posts!!!</h1>
+<h1 th:if="${posts.isEmpty()}" class="text-center mt-5">Search returned no results</h1>
 <div class="container">
-
-    <div th:each="post : ${posts}">
-        <h3><span th:text="${post.title}">Title</span></h3>
-        <p><span th:text="${post.subtitle}"></span><a th:href="@{'/posts/' + ${post.id}}"> Read More</a></p>
+    <div class="col mx-auto" th:each="post, iStat : ${posts}">
+        <div class="row mt-5">
+            <div class="card mx-auto w-75">
+                <div class="card-header text-center bg-light">
+                    <a th:href="@{'/post/'+${post.id}}" class="bgHead">Post<span th:text="${iStat.count}"></span></a>
+                </div>
+                <div class="card-body bgCard">
+                    <h5 class="card-title text-center"><span class="type" th:text="${post.title}"></span></h5>
+                    <p th:text="${post.body}" class="card-text text-center type"></p>
+                    <div sec:authorize="isAuthenticated()">
+                        <div th:if="${#authentication.principal.id == post.getUserId()}">
+                            <a th:href="@{'/post/'+${post.id}+'/edit'}" class="btn btn-primary type"
+                               role="button">Edit</a>
+                            <a th:href="@{'/post/'+${post.id}+'/delete'}" class="btn btn-primary type"
+                               role="button">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div th:replace="partials/footer :: footer"></div>
 
 
+<script th:replace="partials/footer :: footer"></script>
 
-<footer th:replace="partials/footer :: footer" />
 </body>
 </html>
