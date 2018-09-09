@@ -1,40 +1,47 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<body>
-<nav th:fragment="nav-bar" class="navbar navbar-expand-lg navbar-dark bgNav">
-    <a class="navbar-brand" href="/roll-dice"><img id="globeNav" src="/img/globe_white.svg"/></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a href="/home" class="nav-link typeNav">Home</a></li>
-            <div sec:authorize="isAuthenticated()">
-                <li class="nav-item"><a class="nav-link typeNav" href="/post/create">Create</a></li>
+    <body>
+
+
+    <div class="container">
+        <nav th:fragment="nav-bar" class="navbar navbar-expand-lg navbar-dark bgNav">
+
+            <a class="navbar-brand" href="/roll-dice"><img id="globeNav" src="/img/globe_white.svg"/></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="/home" class="nav-link typeNav">Home</a></li>
+                    <div sec:authorize="isAuthenticated()">
+                        <li class="nav-item"><a class="nav-link typeNav" href="/post/create">Create</a></li>
+                    </div>
+                    <li class="nav-item"><a class="nav-link typeNav" href="/posts">Posts</a></li>
+                    <div sec:authorize="!isAuthenticated()">
+                        <li class="nav-item"><a class="nav-link typeNav" href="/login">Login</a></li>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <form  th:action="@{/logout}" th:method="post">
+                            <button  class="logout"><a type="link" class="typeNav logoutNav">Logout</a></button>
+                        </form>
+                    </div>
+                    <div sec:authorize="!isAuthenticated()">
+                        <li class="nav-item"><a class="nav-link typeNav" href="/register">Register</a></li>
+                    </div>
+                </ul>
+
             </div>
-            <li class="nav-item"><a class="nav-link typeNav" href="/posts">Posts</a></li>
-            <div sec:authorize="!isAuthenticated()">
-                <li class="nav-item"><a class="nav-link typeNav" href="/login">Login</a></li>
-            </div>
-            <div sec:authorize="isAuthenticated()">
-                <form  th:action="@{/logout}" th:method="post">
-                    <button  class="logout"><a type="link" class="typeNav logoutNav">Logout</a></button>
+            <div class="collapse navbar-collapse" id="search1">
+                <form id="search" action="/posts" class="form-inline my-2 my-lg-0">
+                    <input name="search" type="search" placeholder="Search Posts" aria-label="Search" class="form-control mr-sm-2 typeNav"/>
+                    <button class="btn btn-outline-success my-2 my-sm-0 typeNav" type="submit">Search</button>
                 </form>
             </div>
-            <div sec:authorize="!isAuthenticated()">
-                <li class="nav-item"><a class="nav-link typeNav" href="/register">Register</a></li>
-            </div>
-        </ul>
-
+        </nav>
     </div>
-    <div class="collapse navbar-collapse" id="search1">
-        <form id="search" action="/posts" class="form-inline my-2 my-lg-0">
-            <input name="search" type="search" placeholder="Search Posts" aria-label="Search" class="form-control mr-sm-2 typeNav"/>
-            <button class="btn btn-outline-success my-2 my-sm-0 typeNav" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
 
-</body>
+    </body>
+
 </html>
